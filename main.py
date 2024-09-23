@@ -29,7 +29,7 @@ dim = (width, height)
 resized_image = cv2.resize(image, dim, interpolation=cv2.INTER_LINEAR)"""
 
 # Convert to grayscale
-gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 """
 # Zwiększenie kontrastu za pomocą CLAHE
 clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
@@ -47,7 +47,8 @@ blur = cv2.GaussianBlur(image, (5, 5), 0)"""
 custom_config = r'--oem 3 --psm 6'  # Opcje konfiguracyjne Tesseract
 text = pytesseract.image_to_string(gray, config=custom_config, lang='pol')
 
+with open('results//COLOR_BGR2RGB_conversion.txt', 'w', encoding='utf=8') as file:
+    file.write(text)
 
-print(text)
 
 scale_and_display_image(gray)
