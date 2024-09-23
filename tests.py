@@ -1,4 +1,4 @@
-import cv2
+"""import cv2
 import numpy as np
 import os
 
@@ -41,4 +41,4 @@ rotated = cv2.warpAffine(image, M, (w, h), flags=cv2.INTER_CUBIC, borderMode=cv2
 # Pokaż wynik
 cv2.imshow("Rotated Image", rotated)
 cv2.waitKey(0)
-cv2.destroyAllWindows()
+cv2.destroyAllWindows()"""
