@@ -12,3 +12,10 @@ validation = list[-1]
 tests = list[:-1]
 
 
+with open(validation, 'r', encoding='utf-8') as f:
+    ground_truth = f.read()
+    f.close()
+    
+print(ground_truth)
+
+#replace polish letters like ąęćśżź and ł
