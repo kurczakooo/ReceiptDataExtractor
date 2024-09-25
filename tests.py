@@ -18,4 +18,11 @@ with open(validation, 'r', encoding='utf-8') as f:
     
 print(ground_truth)
 
-#replace polish letters like ąęćśżź and ł
+"""replace_dic = {261 : 97,
+    281 : 101,
+    263 : 99,
+    347 : 115,
+    380 : 122,
+    378 : 122,
+    322 : 108,
+    243 : 111}"""
