@@ -3,7 +3,7 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+import Levenshtein as lv
 
 def format_text(text):
     replace_dic = {261 : 97,
@@ -14,7 +14,6 @@ def format_text(text):
         378 : 122,
         322 : 108,
         243 : 111}
-    
     new_text = text.lower()
     new_text = new_text.replace("\n", "")
     new_text = new_text.replace(" ", "")
@@ -55,9 +54,16 @@ def compare_strings_histogram_method(ground_truth, ocr_result):
 
 
 def compare_strings_levenshtein(ground_truth, ocr_result):
+    #counts how many changes (additions, substraction, mods) needs to be done to achieve the ground result
+    distance = lv.distance(ocr_result, ground_truth)
+    
+    return distance
     
     
-
+    
+    
+    
+    
 files_list = os.listdir('results//')
 
 for i in range(len(files_list)):
@@ -66,18 +72,21 @@ for i in range(len(files_list)):
 validation = files_list[-1]
 tests = files_list[:-1]
 
-
 with open(validation, 'r', encoding='utf-8') as f:
     ground_truth = f.read()
     f.close()
+    
+ground_truth = format_text(ground_truth)
+ 
     
 for test in tests:
     with open(test, 'r', encoding='utf-8') as f:
         sample = f.read()     
         f.close()
     
-
-ground_truth = format_text(ground_truth)
-sample = format_text(sample)
-
-compare_strings_histogram_method(ground_truth, sample)
+    sample = format_text(sample)
+    name = test.split('_')[1]
+    distance = compare_strings_levenshtein(ground_truth=ground_truth, ocr_result=sample)
+    print(f'Levenshtein distance with {name} optimalization : {distance}')
+    
+#compare_strings_histogram_method(ground_truth=ground_truth, ocr_result=sample)
