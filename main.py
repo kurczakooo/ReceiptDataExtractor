@@ -30,6 +30,9 @@ resized_image = cv2.resize(image, dim, interpolation=cv2.INTER_LINEAR)"""
 
 # Convert to grayscale
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+#denoise the image
+denoised_image = cv2.fastNlMeansDenoising(gray, None, 1, 3, 7)
 """
 # Zwiększenie kontrastu za pomocą CLAHE
 clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
@@ -45,10 +48,10 @@ blur = cv2.GaussianBlur(image, (5, 5), 0)"""
 
 # Użycie Tesseract OCR do rozpoznania tekstu
 custom_config = r'--oem 3 --psm 6'  # Opcje konfiguracyjne Tesseract
-text = pytesseract.image_to_string(gray, config=custom_config, lang='pol')
+text = pytesseract.image_to_string(denoised_image, config=custom_config, lang='pol')
 
-with open('results//COLOR_BGR2RGB_conversion.txt', 'w', encoding='utf=8') as file:
+with open('results//COLOR_BGR2RGB-denoised-1-3-7_conversion.txt', 'w', encoding='utf=8') as file:
     file.write(text)
 
 
-scale_and_display_image(gray)
+scale_and_display_image(denoised_image)
