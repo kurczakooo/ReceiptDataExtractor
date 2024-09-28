@@ -31,15 +31,11 @@ resized_image = cv2.resize(image, dim, interpolation=cv2.INTER_LINEAR)"""
 # Convert to grayscale
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-#denoise the image
-denoised_image = cv2.fastNlMeansDenoising(gray, None, 1, 3, 7)
-"""
-# Zwiększenie kontrastu za pomocą CLAHE
-clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-contrast_enhanced = clahe.apply(image)
+#increase contrast
+more_contrast = cv2.convertScaleAbs(gray, alpha=2, beta=2)
 
-# Gaussian blur
-blur = cv2.GaussianBlur(image, (5, 5), 0)"""
+#denoise the image
+denoised_image = cv2.fastNlMeansDenoising(more_contrast, None, 1, 3, 7)
 
 # Adaptive thresholding
 #thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
@@ -50,7 +46,7 @@ blur = cv2.GaussianBlur(image, (5, 5), 0)"""
 custom_config = r'--oem 3 --psm 6'  # Opcje konfiguracyjne Tesseract
 text = pytesseract.image_to_string(denoised_image, config=custom_config, lang='pol')
 
-with open('results//COLOR_BGR2RGB-denoised-1-3-7_conversion.txt', 'w', encoding='utf=8') as file:
+with open('results//COLOR_BGR2RGB-contrast-a2-b2-denoised-no-args_conversion.txt', 'w', encoding='utf=8') as file:
     file.write(text)
 
 
