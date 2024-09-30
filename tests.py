@@ -59,7 +59,9 @@ def compare_strings_levenshtein(ground_truth, ocr_result):
     #counts how many changes (additions, substraction, mods) needs to be done to achieve the ground result
     distance = lv.distance(ocr_result, ground_truth)
     
-    return distance
+    accuracy = (len(ground_truth) - distance) / len(ground_truth) * 100
+    
+    return accuracy
     
     
     
@@ -89,7 +91,7 @@ for test in tests:
     sample = format_text(sample)
     name1 = test.split("//")[1]
     name = name1.split('.')[0]
-    distance = compare_strings_levenshtein(ground_truth=ground_truth, ocr_result=sample)
-    print(f'Levenshtein distance with {name} optimalization : {distance}')
+    accuracy = compare_strings_levenshtein(ground_truth=ground_truth, ocr_result=sample)
+    print(f'Levenshtein distance with {name:70} optimalization : {accuracy:6.3f}')
     
 #compare_strings_histogram_method(ground_truth=ground_truth, ocr_result=sample)
