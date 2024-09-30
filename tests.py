@@ -82,6 +82,7 @@ with open(validation, 'r', encoding='utf-8') as f:
     
 ground_truth = format_text(ground_truth)
  
+accuracy_dic = {}
     
 for test in tests:
     with open(test, 'r', encoding='utf-8') as f:
@@ -92,6 +93,14 @@ for test in tests:
     name1 = test.split("//")[1]
     name = name1.split('.')[0]
     accuracy = compare_strings_levenshtein(ground_truth=ground_truth, ocr_result=sample)
-    print(f'Levenshtein distance with {name:70} optimalization : {accuracy:6.3f}')
     
+    accuracy_dic[name] = accuracy
+    
+
+sorted = dict(sorted(accuracy_dic.items(), key=lambda item: item[1]))
+    
+for name, accuracy in sorted.items():
+    print(f'Levenshtein distance with {name:70} optimalization : {accuracy:6.3f}')
+
+
 #compare_strings_histogram_method(ground_truth=ground_truth, ocr_result=sample)
