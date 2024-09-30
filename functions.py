@@ -1,4 +1,6 @@
 import cv2
+import os
+from pdf2image import convert_from_path
 
 
 def scale_and_display_image(image):
@@ -15,3 +17,16 @@ def scale_and_display_image(image):
     cv2.imshow('post optimizing', resized_image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+    
+    
+def convert_pdf_to_png():
+    scan_list = os.listdir('data//my_data//')
+
+    documents = [os.path.join('data//my_data//', scan) for scan in scan_list]
+
+    i = 1
+    for document in documents:
+        page = convert_from_path(document)[0] 
+
+        page.save(f'data//my_data_converted//output{i}.png', 'PNG')
+        i += 1

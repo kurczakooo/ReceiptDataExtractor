@@ -68,10 +68,10 @@ def compare_strings_levenshtein(ground_truth, ocr_result):
     
     
     
-files_list = os.listdir('results//')
+files_list = os.listdir('another_approach_results//')
 
 for i in range(len(files_list)):
-    files_list[i] = os.path.join('results//', files_list[i])
+    files_list[i] = os.path.join('another_approach_results//', files_list[i])
 
 validation = files_list[-1]
 tests = files_list[:-1]
