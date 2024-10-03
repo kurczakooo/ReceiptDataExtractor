@@ -18,7 +18,7 @@ tresh_param_grid = {
 
 def treshParameterGridSearch(param_grid):
     
-    for i in 
+    for i in range(len(tresh_param_grid.items())):
         # Convert to grayscale
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
